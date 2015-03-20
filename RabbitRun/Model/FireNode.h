@@ -9,5 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface FireNode : SKSpriteNode
+@property (nonatomic) NSInteger fireAnimationInt;
+@property (nonatomic,strong) NSArray *fireArray;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "GameScene.h"
 #import <CoreMotion/CoreMotion.h>
+#import "FireNode.h"
 
 @interface GameScene()
 @property (nonatomic) double lastCurrentTime;
@@ -17,12 +18,14 @@
 @property (nonatomic) int fileAnimationInt;
 @property (nonatomic) CFTimeInterval lastSpawnTimeInterval;
 @property (nonatomic,strong) CMMotionManager *motionManager;
+@property (nonatomic,strong) NSMutableArray *fireArray;
 @end
 
 @implementation GameScene
 
 -(id)initWithSize:(CGSize)size{
      if (self = [super initWithSize:size]) {
+         self.fireArray = [NSMutableArray array];
          SKTexture* explodeTexture2 = [SKTexture textureWithImageNamed:@"game_bg"];
          explodeTexture2.filteringMode = SKTextureFilteringNearest;
          SKSpriteNode *backNode = [SKSpriteNode spriteNodeWithTexture:explodeTexture2 size:CGSizeMake(self.frame.size.width, self.frame.size.height)];
@@ -41,8 +44,56 @@
          self.motionManager = [[CMMotionManager alloc]init];
          
          [self.motionManager startAccelerometerUpdates];
+         
+         SKAction *actionAddMonster = [SKAction runBlock:^{
+             [self addMonster];
+         }];
+         SKAction *actionWaitNextMonster = [SKAction waitForDuration:0.5];
+         [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[actionAddMonster,actionWaitNextMonster]]]];
      }
     return self;
+}
+
+#pragma mark-
+- (void) addMonster {
+    
+    SKSpriteNode *monster = [SKSpriteNode spriteNodeWithImageNamed:@"fire_1"];
+    
+    //1 Determine where to spawn the monster along the Y axis
+    CGSize winSize = self.size;
+    int minX = monster.size.width / 2;
+    int maxX = winSize.width - monster.size.width/2;
+    int rangeX = maxX - minX;
+    int actualX = (arc4random() % rangeX) + minX;
+    
+    //2 Create the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    monster.position = CGPointMake(actualX, winSize.height+monster.size.height/2);
+    [self addChild:monster];
+    [self.fireArray addObject:monster];
+    
+    //3 Determine speed of the monster
+    int minDuration = 1.0;
+    int maxDuration = 3.0;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    //4 Create the actions. Move monster sprite across the screen and remove it from scene after finished.
+    SKAction *actionMove = [SKAction moveTo:CGPointMake(actualX, monster.size.height/2+5)
+                                   duration:actualDuration];
+    SKAction *actionMoveDone = [SKAction runBlock:^{
+        [monster removeFromParent];
+        [self.fireArray removeObject:monster];
+    }];
+    NSMutableArray *texturesArray = [NSMutableArray array];
+    for (int i = 0; i < 4; i++) {
+        SKTexture* explodeTexture1 = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"fire_%d",i+1]];
+        explodeTexture1.filteringMode = SKTextureFilteringNearest;
+        [texturesArray addObject:explodeTexture1];
+    }
+    SKAction *actionImage = [SKAction animateWithTextures:texturesArray timePerFrame:0.1];
+    [monster runAction:[SKAction sequence:@[actionMove,actionMoveDone,actionImage]]];
+    
 }
 
 
@@ -142,7 +193,13 @@
     }
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
     [self processUserMotionForUpdate:currentTime];
-    [self updateWithTimeFireSinceLastUpdate:timeSinceLast];
+//    [self updateWithTimeFireSinceLastUpdate:timeSinceLast];
+    for (SKSpriteNode *monster in self.fireArray) {
+        
+        if (CGRectIntersectsRect(self.player.frame, monster.frame)) {
+            NSLog(@"你已经输了");
+        }
+    }
 }
 
 @end
