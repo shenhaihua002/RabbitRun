@@ -9,6 +9,7 @@
 #import "GameScene.h"
 #import <CoreMotion/CoreMotion.h>
 #import "FireNode.h"
+#import "ResultScene.h"
 
 @interface GameScene()
 @property (nonatomic) double lastCurrentTime;
@@ -19,6 +20,9 @@
 @property (nonatomic) CFTimeInterval lastSpawnTimeInterval;
 @property (nonatomic,strong) CMMotionManager *motionManager;
 @property (nonatomic,strong) NSMutableArray *fireArray;
+@property (nonatomic) BOOL isWin;
+@property (nonatomic,strong) SKAction *spinForever;
+
 @end
 
 @implementation GameScene
@@ -38,8 +42,17 @@
          self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.height/2+8);
          [self addChild:self.player];
          
-         _playerAnimationInt = 1;
-         _fileAnimationInt = 1;
+         NSMutableArray *texturesArray = [NSMutableArray array];
+         for (int i = 0; i < 6; i++) {
+             SKTexture* explodeTexture1 = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"rabbit_ani_chiki_%d",i+1]];
+             explodeTexture1.filteringMode = SKTextureFilteringNearest;
+             [texturesArray addObject:explodeTexture1];
+         }
+         SKAction *actionImage = [SKAction animateWithTextures:texturesArray timePerFrame:0.1];
+         self.spinForever = [SKAction repeatActionForever:actionImage];
+         [self.player runAction:_spinForever withKey:@"running"];
+         
+         _isWin = NO;
          //     NSLog(@"Size: %@", NSStringFromCGSize(size));
          self.motionManager = [[CMMotionManager alloc]init];
          
@@ -92,8 +105,20 @@
         [texturesArray addObject:explodeTexture1];
     }
     SKAction *actionImage = [SKAction animateWithTextures:texturesArray timePerFrame:0.1];
-    [monster runAction:[SKAction sequence:@[actionMove,actionMoveDone,actionImage]]];
-    
+    SKAction *spinForever = [SKAction repeatActionForever:actionImage];
+    [monster runAction:spinForever];
+    [monster runAction:[SKAction sequence:@[actionMove,actionMoveDone]]];
+
+}
+
+-(void) changeToResultSceneWithWon:(BOOL)won
+{
+//    [self.bgmPlayer stop];
+//    self.bgmPlayer = nil;
+    _isWin = YES;
+    ResultScene *rs = [[ResultScene alloc] initWithSize:self.size won:won];
+    SKTransition *reveal = [SKTransition revealWithDirection:SKTransitionDirectionUp duration:0.1];
+    [self.scene.view presentScene:rs transition:reveal];
 }
 
 
@@ -191,13 +216,34 @@
         timeSinceLast = 1.0 / 60.0;
         self.lastUpdateTimeInterval = currentTime;
     }
-    [self updateWithTimeSinceLastUpdate:timeSinceLast];
-    [self processUserMotionForUpdate:currentTime];
+//    [self updateWithTimeSinceLastUpdate:timeSinceLast];
+    if (!_isWin) {
+        [self processUserMotionForUpdate:currentTime];
+
+    }
 //    [self updateWithTimeFireSinceLastUpdate:timeSinceLast];
     for (SKSpriteNode *monster in self.fireArray) {
         
         if (CGRectIntersectsRect(self.player.frame, monster.frame)) {
-            NSLog(@"你已经输了");
+            if (!_isWin) {
+                _isWin = YES;
+                [self.motionManager stopAccelerometerUpdates];
+                NSLog(@"你已经输了");
+                [self.player removeActionForKey:@"running"];
+                NSMutableArray *texturesArray = [NSMutableArray array];
+                for (int i = 0; i < 5; i++) {
+                    SKTexture* explodeTexture1 = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"rabbit_fire_%d",i+1]];
+                    explodeTexture1.filteringMode = SKTextureFilteringNearest;
+                    [texturesArray addObject:explodeTexture1];
+                }
+                SKAction *actionImage = [SKAction animateWithTextures:texturesArray timePerFrame:0.1];
+                SKAction *actionPlay = [SKAction repeatAction:actionImage count:1];
+                [self.player runAction:actionPlay completion:^{
+                    [self changeToResultSceneWithWon:NO];
+                }];
+
+            }
+           
         }
     }
 }

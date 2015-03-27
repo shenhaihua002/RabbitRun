@@ -28,6 +28,12 @@
 		F39B31CF1ABACEC000DBF7C0 /* fire_3.png in Resources */ = {isa = PBXBuildFile; fileRef = F39B31CB1ABACEC000DBF7C0 /* fire_3.png */; };
 		F39B31D01ABACEC000DBF7C0 /* fire_4.png in Resources */ = {isa = PBXBuildFile; fileRef = F39B31CC1ABACEC000DBF7C0 /* fire_4.png */; };
 		F39B31D41ABAD09A00DBF7C0 /* FireNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F39B31D31ABAD09A00DBF7C0 /* FireNode.m */; };
+		F3C99EDD1AC544FF00F5752D /* ResultScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C99EDC1AC544FF00F5752D /* ResultScene.m */; };
+		F3C99EE31AC54AD600F5752D /* rabbit_fire_1.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C99EDE1AC54AD600F5752D /* rabbit_fire_1.png */; };
+		F3C99EE41AC54AD600F5752D /* rabbit_fire_2.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C99EDF1AC54AD600F5752D /* rabbit_fire_2.png */; };
+		F3C99EE51AC54AD600F5752D /* rabbit_fire_3.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C99EE01AC54AD600F5752D /* rabbit_fire_3.png */; };
+		F3C99EE61AC54AD600F5752D /* rabbit_fire_4.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C99EE11AC54AD600F5752D /* rabbit_fire_4.png */; };
+		F3C99EE71AC54AD600F5752D /* rabbit_fire_5.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C99EE21AC54AD600F5752D /* rabbit_fire_5.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +76,13 @@
 		F39B31CC1ABACEC000DBF7C0 /* fire_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_4.png; sourceTree = "<group>"; };
 		F39B31D21ABAD09A00DBF7C0 /* FireNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireNode.h; sourceTree = "<group>"; };
 		F39B31D31ABAD09A00DBF7C0 /* FireNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireNode.m; sourceTree = "<group>"; };
+		F3C99EDB1AC544FF00F5752D /* ResultScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultScene.h; sourceTree = "<group>"; };
+		F3C99EDC1AC544FF00F5752D /* ResultScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultScene.m; sourceTree = "<group>"; };
+		F3C99EDE1AC54AD600F5752D /* rabbit_fire_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rabbit_fire_1.png; sourceTree = "<group>"; };
+		F3C99EDF1AC54AD600F5752D /* rabbit_fire_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rabbit_fire_2.png; sourceTree = "<group>"; };
+		F3C99EE01AC54AD600F5752D /* rabbit_fire_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rabbit_fire_3.png; sourceTree = "<group>"; };
+		F3C99EE11AC54AD600F5752D /* rabbit_fire_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rabbit_fire_4.png; sourceTree = "<group>"; };
+		F3C99EE21AC54AD600F5752D /* rabbit_fire_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rabbit_fire_5.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +136,8 @@
 				F39B31A11AB9147200DBF7C0 /* Images.xcassets */,
 				F39B31A31AB9147200DBF7C0 /* LaunchScreen.xib */,
 				F39B318F1AB9147200DBF7C0 /* Supporting Files */,
+				F3C99EDB1AC544FF00F5752D /* ResultScene.h */,
+				F3C99EDC1AC544FF00F5752D /* ResultScene.m */,
 			);
 			path = RabbitRun;
 			sourceTree = "<group>";
@@ -157,6 +172,11 @@
 		F39B31BA1AB9541000DBF7C0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F3C99EDE1AC54AD600F5752D /* rabbit_fire_1.png */,
+				F3C99EDF1AC54AD600F5752D /* rabbit_fire_2.png */,
+				F3C99EE01AC54AD600F5752D /* rabbit_fire_3.png */,
+				F3C99EE11AC54AD600F5752D /* rabbit_fire_4.png */,
+				F3C99EE21AC54AD600F5752D /* rabbit_fire_5.png */,
 				F39B31C91ABACEC000DBF7C0 /* fire_1.png */,
 				F39B31CA1ABACEC000DBF7C0 /* fire_2.png */,
 				F39B31CB1ABACEC000DBF7C0 /* fire_3.png */,
@@ -262,19 +282,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				F39B31C11AB9541000DBF7C0 /* rabbit_ani_chiki_1.png in Resources */,
+				F3C99EE41AC54AD600F5752D /* rabbit_fire_2.png in Resources */,
+				F3C99EE71AC54AD600F5752D /* rabbit_fire_5.png in Resources */,
 				F39B31A51AB9147200DBF7C0 /* LaunchScreen.xib in Resources */,
 				F39B31C51AB9541000DBF7C0 /* rabbit_ani_chiki_5.png in Resources */,
 				F39B31A21AB9147200DBF7C0 /* Images.xcassets in Resources */,
 				F39B31C31AB9541000DBF7C0 /* rabbit_ani_chiki_3.png in Resources */,
 				F39B31C61AB9541000DBF7C0 /* rabbit_ani_chiki_6.png in Resources */,
 				F39B31CF1ABACEC000DBF7C0 /* fire_3.png in Resources */,
+				F3C99EE61AC54AD600F5752D /* rabbit_fire_4.png in Resources */,
 				F39B319A1AB9147200DBF7C0 /* GameScene.sks in Resources */,
 				F39B31D01ABACEC000DBF7C0 /* fire_4.png in Resources */,
 				F39B31A01AB9147200DBF7C0 /* Main.storyboard in Resources */,
 				F39B31CD1ABACEC000DBF7C0 /* fire_1.png in Resources */,
 				F39B31CE1ABACEC000DBF7C0 /* fire_2.png in Resources */,
 				F39B31C21AB9541000DBF7C0 /* rabbit_ani_chiki_2.png in Resources */,
+				F3C99EE51AC54AD600F5752D /* rabbit_fire_3.png in Resources */,
 				F39B31C41AB9541000DBF7C0 /* rabbit_ani_chiki_4.png in Resources */,
+				F3C99EE31AC54AD600F5752D /* rabbit_fire_1.png in Resources */,
 				F39B31C81ABAA22E00DBF7C0 /* game_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +321,7 @@
 				F39B31D41ABAD09A00DBF7C0 /* FireNode.m in Sources */,
 				F39B319D1AB9147200DBF7C0 /* GameViewController.m in Sources */,
 				F39B31951AB9147200DBF7C0 /* AppDelegate.m in Sources */,
+				F3C99EDD1AC544FF00F5752D /* ResultScene.m in Sources */,
 				F39B31981AB9147200DBF7C0 /* GameScene.m in Sources */,
 				F39B31921AB9147200DBF7C0 /* main.m in Sources */,
 			);
